@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
+import { I18nProvider } from "@/i18n/context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -8,11 +9,11 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Bay Area Premier Home Renovation | Professional Remodeling Contractor",
+  title: "湾区专业房屋装修 | Bay Area Premier Home Renovation",
   description:
-    "Expert home renovation services in the San Francisco Bay Area. Specializing in whole-home remodels, kitchen & bathroom renovations, roofing, fence installation, and interior painting. Licensed, insured, and trusted by Bay Area homeowners.",
+    "旧金山湾区专业房屋装修服务。整体翻新、厨房卫浴改造、屋顶修缮、围栏安装、油漆粉刷。持牌保险，值得信赖。Expert home renovation in SF Bay Area.",
   keywords:
-    "San Francisco Bay Area renovation, home remodeling, kitchen renovation, bathroom remodel, roofing contractor, fence installation, house painting, Bay Area contractor",
+    "旧金山湾区装修, 房屋翻新, 厨房改造, 卫浴装修, San Francisco Bay Area renovation, home remodeling, kitchen renovation, bathroom remodel",
 };
 
 export default function RootLayout({
@@ -21,8 +22,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="zh-CN" className={`${geistSans.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col">
+        <I18nProvider>{children}</I18nProvider>
+      </body>
     </html>
   );
 }

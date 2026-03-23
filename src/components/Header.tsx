@@ -1,17 +1,20 @@
 "use client";
 
 import { useState } from "react";
-
-const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#services", label: "Services" },
-  { href: "#portfolio", label: "Portfolio" },
-  { href: "#testimonials", label: "Testimonials" },
-  { href: "#contact", label: "Contact" },
-];
+import { useI18n } from "@/i18n/context";
+import PhoneNumber from "./PhoneNumber";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { t, toggleLocale } = useI18n();
+
+  const navLinks = [
+    { href: "#about", label: t.nav.about },
+    { href: "#services", label: t.nav.services },
+    { href: "#portfolio", label: t.nav.portfolio },
+    { href: "#testimonials", label: t.nav.testimonials },
+    { href: "#contact", label: t.nav.contact },
+  ];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
@@ -36,16 +39,16 @@ export default function Header() {
             </div>
             <div>
               <span className="text-xl font-bold text-gray-900 tracking-tight">
-                Bay Area Renovation
+                {t.footer.brand}
               </span>
               <span className="hidden sm:block text-xs text-gray-500 tracking-wide uppercase">
-                Professional Home Remodeling
+                SF Bay Renovations
               </span>
             </div>
           </a>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -55,42 +58,58 @@ export default function Header() {
                 {link.label}
               </a>
             ))}
-            <a
-              href="tel:+14155551234"
-              className="bg-amber-600 hover:bg-amber-700 text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition-colors"
+
+            {/* Language toggle */}
+            <button
+              onClick={toggleLocale}
+              className="text-sm font-medium text-gray-500 hover:text-amber-600 transition-colors border border-gray-300 rounded-lg px-3 py-1.5"
             >
-              (415) 555-1234
-            </a>
+              {t.langToggle}
+            </button>
+
+            <PhoneNumber
+              href={t.phoneHref}
+              phone={t.phone}
+              className="bg-amber-600 hover:bg-amber-700 text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition-colors"
+            />
           </nav>
 
           {/* Mobile menu button */}
-          <button
-            className="md:hidden p-2"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
-          >
-            <svg
-              className="w-6 h-6 text-gray-700"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
+          <div className="flex items-center gap-3 md:hidden">
+            <button
+              onClick={toggleLocale}
+              className="text-sm font-medium text-gray-500 hover:text-amber-600 transition-colors border border-gray-300 rounded-lg px-3 py-1.5"
             >
-              {mobileOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                />
-              )}
-            </svg>
-          </button>
+              {t.langToggle}
+            </button>
+            <button
+              className="p-2"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle menu"
+            >
+              <svg
+                className="w-6 h-6 text-gray-700"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+              >
+                {mobileOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  />
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
 
         {/* Mobile Nav */}
@@ -107,12 +126,11 @@ export default function Header() {
                   {link.label}
                 </a>
               ))}
-              <a
-                href="tel:+14155551234"
-                className="bg-amber-600 hover:bg-amber-700 text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition-colors text-center"
-              >
-                (415) 555-1234
-              </a>
+              <PhoneNumber
+                href={t.phoneHref}
+                phone={t.phone}
+                className="bg-amber-600 hover:bg-amber-700 text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition-colors text-center block"
+              />
             </div>
           </nav>
         )}
