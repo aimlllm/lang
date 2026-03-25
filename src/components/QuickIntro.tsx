@@ -12,7 +12,7 @@ export default function QuickIntro() {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 sm:p-8 text-white">
           <h2 className="text-2xl sm:text-3xl font-bold text-center mb-1">
-            称呼：刘师傅
+            湾区刘师傅
           </h2>
           <p className="text-amber-400 font-semibold text-center text-lg mb-5">
             —— 专业建筑装修服务
